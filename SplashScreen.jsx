@@ -15,28 +15,29 @@ import {useNavigation} from '@react-navigation/native';
 const SplashScreen = () => {
   const [loading, setLoading] = useState(true);
 
-  const api_url = 'https://erp.setuconsulting.com/aj_get_url';
+  const api_url = 'https://www.ajsmartbuild.com';
 
   const navigation = useNavigation();
 
   useEffect(() => {
     // setTimeout(() => setLoading(false), 3000);
     fetch(api_url)
-      .then(response => response.json())
-      .then(json => {
+      .then(response => {
+        // console.log(response);
         setTimeout(() => {
           navigation.reset({
             index: 0,
             routes: [
               {
                 name: 'Home',
-                params: {url: json.aj_weburl},
+                params: {url: api_url},
               },
             ],
           });
         }, 2500);
       })
       .catch(error => {
+        console.log(error);
         Alert.alert('Server Error', 'Please Try After Sometime');
       });
   }, []);
